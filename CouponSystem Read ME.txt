@@ -1,0 +1,193 @@
+Coupon system project				  **
+Submitted by Naeh Orchay Naeh - 301359915		  **	
+Class 822 / 80 				                **
+June 24 2017					  **
+*********************************************
+
+This project demonstrate a coupon system based on SQL and java classes.
+The web part of the project is written with html, java Script and angularJS that bounds them together In order to create three SPAs, one for each client type:
+1.	Administrator – general supervision-in charge of registering users to the system
+2.	Companies –  source to create and publish coupons in the system
+3.	Customers – may purchase coupons published by the companies
+Data about the users: the companies and the customers is registered and saved in SQL tables. This project was written with mySQL and the Eclipse program (please refer to SQL recreating scheme and javaDoc).
+The created coupons images are taken from old drawing, and not necessarily connected to the coupons titles.
+Enjoy 
+
+*********************************************
+
+The login page
+The login page submit a form to validate the user’s identity by matching the user name and the password against the relevant table in the DB, 
+(excluding the administrator which his personal login information is saved within the class itself).				            
+The login form is being validated to prevent an error 500 for in complete data.
+On submitting the form the user is directed to one of four pages by the login servlet
+Administrator page – SPA
+Company page – SPA 
+Customer page – SPA
+Login Error page
+
+*********************************************
+
+Login error page
+Directed when there is a mismatch between the password and the user name or if the user is not registered
+Provides a link to return to the login page
+
+*********************************************
+
+SPAs
+As mentioned above there are three SPA each are divided into sub partials.		 	                   
+Sub partial is a page that being referred to by the ng-rout directive to display certain contents available within.
+
+*********************************************
+					              
+Administrator SPA      
+Partial: companies
+Description: allow the administrator user to create, update or remove companies from the data base.
+Components: 
+•	Logout component
+•	Insert manipulation table companies table
+•	Coupon sub table – shorten
+•	Create form
+•	Edit form
+•	Messages unit
+                         
+Partial: customers
+Description: allow the administrator user to create, update or remove customers from the data base.
+Components: 
+•	Logout component
+•	Insert manipulation table-customers table
+•	Coupon sub table – shorten
+•	Create form
+•	Edit form
+•	Messages unit
+
+******************************************
+
+Company SPA      
+Partial: Settings
+Description: presents the user login parameters
+Components: 
+•	Logout component
+•	Disabled personal information form
+
+Partial: coupons
+Description: allow the logged company user to create, update or remove coupons that related to him in the data base.
+Components: 
+•	Logout component
+•	Insert manipulation table-coupons table
+•	Create form
+•	Edit form
+•	Messages unit
+
+Partial: couponTest
+Description: display a customer view of the coupons for advertisement purposes
+Components: 
+•	Logout component
+•	Custom directive – “custview”
+
+****************************************
+
+Customer SPA      
+Partial: Settings
+Description: presents the user login parameters
+Components: 
+•	Logout component
+•	Disabled personal information form
+
+Partial: My coupons
+Description: allow the logged customer user to view his purchased coupons
+Components: 
+•	Logout component
+•	Customer table – view only coupons table
+•	Messages unit
+
+Partial: Available coupons
+Description: allow the logged customer user to view all the purchasable coupons available for him 
+Components: 
+•	Logout component
+•	Customer table – coupons table with purchase option
+•	Messages unit
+
+Partial: Available-Full-View
+Description: display all the available coupons for the customer, the customer can browse over and view the coupons (advertisement purposes) and purchase them directly from there
+Components: 
+•	Logout component
+•	Custom directive – “custview2” (differ by the purchase button)
+
+
+******************************************
+
+Components 
+
+Logout component
+As directed each page in the application must enable logout option, by pressing the logout button located in the top left corner the user may perform a logout by sending a request to the logout servlet
+
+
+*****************************************
+
+Tables
+We can distinguish between two table types:
+One table is of the inserts manipulation –provides the ability to create/remove/ edit inserts’ information (inserts = users (i.e. customers and companies) or coupons)
+•	administrator’s user manipulation 
+•	companies’ coupons  manipulation
+*update and create are done by the aid of forms
+Note: the administrator can’t change the coupons published by the companies nor those that were purchased by the customers
+The other table type is the customers’ coupon tables where the only function available is purchase (or none in viewing the purchased coupons).
+ 
+Table - general
+The inserts data as well as the relative functions (remove and edit or purchase) are collected and presented in an interactive tables.
+As default the QSL table is sorted by the ID columns that uses auto incrimination for new inserts. 
+The data rows are assigned with an index parameter by the ng-repeat directive.
+The tables are interactive and may present the data or parts of it by the aid of filters and order by functionality.
+
+Tables - sort and filter
+By using search text the user may filter through the results to match the requested inputs, clicking on the refresh button will clear the free text search and selections and sort all the rows by the default assigned indexes.
+Clicking on the table’s columns headers will sort the results alphabetically or numerically according to the column’s values.
+The order by functionality escorted by a small window to clarify the order by parameters (column + reverse), user may reverse sort direction by repeated click on the same column header. 
+*For coupons tables only - price search box - filters through the coupons results and display only those which costs less then given input price.
+
+Functions embedded within the tables
+Edit button
+Clicking the edit insert button placed within the table’s rows, indicates which insert the user wish to edit.					 
+On click the edit buttons they display the “edit form“ below the table, with the selected insert’s non editable fields disabled.
+Delete button
+The “Delete” marked by an X allow the user to remove specific inserts from the table and the DB
+“Coupons buttons” and the coupon sub table
+Available only by administrator tables, presents the companies’ published coupon lists or the customers’ purchased coupon lists.				   
+Clicking the show coupons icon (piggy bank) opens a sub table below presenting the relevant coupon list (shorten version). 				        
+The user may toggle between the different inserts’ coupon tables
+To collapse the coupon table press two sequential clicks on the insert’s coupons button, or use the close button provided above the sub coupon table
+
+*****************************************
+
+Forms
+Forms - general
+We can distinguish between 2 forms:
+•	create insert form
+•	edit insert form
+Both form types are relevant only for the administrator and the companies, of course they differ by the insert type as well (companies-coupons, administrator – companies and customers) 
+The form is managed by form validations, required fields and type matching inputs, unless all required fields are met and inserted with the correct format the form may not be sent and the submitting button is disabled.
+The user may toggle between the inserts’ “edit buttons” in the table and the “create insert” button to switch between the form types and the editable inserts.
+Edit Form
+Clicking on the tables “edit” buttons open the Edit form allowing the user to edit the inserts’ editable fields and disabling the option to alter identifying fields.		
+The editable fields are available to change, while still fitting the required types.		             
+When all requirements are met the submitting request button is enabled	
+Create Form
+Under the main table there is a “create insert” button by clicking is the user may open the “create form”. 
+The form contains validations of required fields and type matching inputs, only when all requirements are met the submitting request button is enabled.
+
+*****************************************
+
+User messages
+After each user request for create/delete/update (or purchase request by customer) is being made, the user is informed of the action results by a message that emerge from the bottom of the screen, containing a response for successful or failed attempt for the operation.
+Pressing on the X mark or anywhere outside the message window will close it and allow the user to continue.
+
+*******************************************
+
+Custom directive
+There are two custom directive embedded in this project combining with ng-repeat directive to create a customer presentable view.				          
+This achieved by injecting the directives with an html coupon template and the scope inheritance ability.
+The same method applied by company’s couponTest partial and the customer’s available-full-view partial.
+The customer full view is provided with the additional purchase button within the template allowing easy purchasing of the coupons by the customers.
+
+*******************************************
+
