@@ -1,0 +1,211 @@
+<div class="container">
+
+<h3>Customers </h3>
+
+<br>
+
+<button type="button" class="btn btn-success" data-ng-click="logOut=true">
+	<span class="glyphicon glyphicon-user"></span> Logout
+</button>
+	<div data-ng-show="logOut">
+		<p>are you sure?</p>
+		<img src="http://localhost:8080/projectCoupons/images/logOut.jpg" class="img-rounded" alt="no Image" width="150" height="115"
+				data-ng-click=CustomerController.logOut()></img>
+				<button type="button" class="btn btn-success" data-ng-click="logOut=false">
+					<span class="glyphicon glyphicon-like"></span> stay</button>
+				<button type="button" class="btn btn-danger" data-ng-click="CustomerController.logOut()">
+					<span class="glyphicon glyphicon-like"></span> leave</button>
+
+	</div>
+	
+	
+<br>
+<br>  	
+	
+	<div class="btn-group pull-right">
+
+  		<div class="input-group">
+	
+		<span class="input-group-btn">
+			
+			<button type="button" class="btn btn-default">
+    			<span class="glyphicon glyphicon-search"></span> search
+    		</button>
+  		   	
+        	<input type="text" class="form-control" style="width: 100px;" placeholder="Name"
+        	 data-ng-init="" data-ng-model="CustomerController.customerTypefilter.custName">
+   
+
+        	<input type="text" class="form-control" style="width: 100px;" placeholder="ID"
+        	 data-ng-init="" data-ng-model="CustomerController.customerTypefilter.custId">
+
+        	  		
+        <span class="input-group pull-left">
+        
+		<button class="btn btn-default" data-ng-click="CustomerController.propertyName = null;
+					   CustomerController.reverse = false;
+					   CustomerController.customerTypefilter">
+			  <span class="glyphicon glyphicon-refresh"></span> Refresh
+		</button>
+
+		</span>		
+		</span>
+	</div>
+	</div>
+
+<table class="table table-striped">
+  <thead>	
+    <tr>
+      <th class="col-sm-2">Edit</th>
+      <th class="col-sm-2">Remove</th>
+      <th class="col-md-1" data-ng-show="false">Index</th>
+      <th>
+			<button class="btn" data-ng-click="CustomerController.sortBy('custId')">ID</button>
+      		<span class="sortorder" data-ng-show="CustomerController.propertyName === 'custId'"></span>
+	  </th>
+
+      <th>
+			<button class="btn"  data-ng-click="CustomerController.sortBy('custName')">Customer Name</button>
+      		<span class="sortorder" data-ng-show="CustomerController.propertyName === 'custName'"></span>
+	  </th>
+      <th class="col-sm-4">Password</th>
+      <th class="col-sm-2" data-ng-show="true" style="text-align: center;">Coupons</th>
+    </tr>
+  </thead>
+  <tbody> 
+	
+	  
+  	<pre>Sort by = {{CustomerController.propertyName}}; reverse = {{CustomerController.reverse}}</pre>
+  
+	<tr data-ng-repeat="customer in CustomerController.customers | orderBy : CustomerController.propertyName | filter:CustomerController.customerTypefilter:match">
+      <td>
+        <button class="btn" data-ng-click="CustomerController.editORCreateCust($index)">
+           <span class="glyphicon glyphicon-edit"></span>  Edit
+        </button>
+      </td>
+      <td>
+        <button class="btn" data-ng-click="CustomerController.removeCustomer($index)">
+           <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </td>      
+      <td data-ng-show="false">{{$index}}</td>
+      <td>{{ customer.custId }}</td>
+      <td>{{ customer.custName }}</td>
+      <td>{{ customer.password }}</td>
+      <td>
+        <button  class="btn" data-ng-click="CustomerController.getCoupons($index)">
+           <span class="glyphicon glyphicon-piggy-bank"></span>
+        </button>
+   	</td> 
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<br>
+
+<div data-ng-show="CustomerController.showCoupons">
+<button class="btn btn-danger" data-ng-click="CustomerController.showCoupons=false"><span class="glyphicon glyphicon-remove-circle"></span> Close</button>
+<h3>{{CustomerController.hisCoupons}}'s purchased coupons</h3>
+<table class="table table-striped"  style="text-align: center;">
+  <tbody>
+  	<thead>
+    	<tr>
+      		<th class="col-sm-1" style="text-align: center;">index</th>
+      		<th class="col-sm-2" style="text-align: center;">coupon ID</th>
+      		<th class="col-sm-4" style="text-align: center;">coupon Title</th>
+      		<th class="col-sm-4" style="text-align: center;">image</th>
+		</tr>
+	</thead>
+		<tr data-ng-repeat="coupon in CustomerController.clickCoupons">
+	      		<td>	{{$index}}	</td>
+	      		<td>	{{coupon.couponId}}	</td>
+	      		<td>	{{coupon.title}}	</td>
+	      		<td>	<img src={{coupon.image}} class="img-rounded" alt="no Image" width="100px" height="100px">
+	      		</td>
+	    <tr/>
+    </tbody>
+</table>
+</div>
+<hr>
+
+<br>
+<button class="btn btn-primary" data-ng-click="CustomerController.editORCreateCust('new')">
+<span class="glyphicon glyphicon-user"></span>  Create New Customer
+</button>
+<hr>
+
+
+<div data-ng-show="CustomerController.create">
+	<h3>Create New User:</h3>
+<form name="createForm" class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Customer Name:</label>
+    <div class="col-sm-4">
+    <input class="form-control" type="text" data-ng-model="CustomerController.custName" placeholder="Customer Name" required> 
+    </div>
+  </div> 
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Password:</label>
+    <div class="col-sm-2">
+
+    <input class="form-control" type="text" data-ng-model="CustomerController.passw1" placeholder="Password" required>
+    </div>
+  </div>
+	
+	<button type="submit" class="btn btn-primary" data-ng-click="CustomerController.applyCreate()" data-ng-disabled="!createForm.$valid"> 
+		<span class="glyphicon glyphicon-save"></span>  Create
+	</button>
+	  
+  
+</form>
+</div>
+
+<hr>
+
+<div data-ng-show="CustomerController.edit">
+	<h3>Edit User: {{CustomerController.editName}}</h3>
+<form name="editForm" class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Customer Name:</label>
+    <div class="col-sm-4">
+    <input class="form-control" type="text" data-ng-disabled="true"  placeholder={{CustomerController.editName}}>
+    </div>
+  </div> 
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Password:</label>
+    <div class="col-sm-2">
+    <input class="form-control" type="text" data-ng-model="CustomerController.passw1" placeholder="Password" required>
+    </div>
+  </div>
+	
+	<button type="submit" class="btn btn-primary" data-ng-click="CustomerController.applyUpdate()" data-ng-disabled="!editForm.$valid"> 
+		<span class="glyphicon glyphicon-share"></span>  Update
+	</button>
+	  
+  
+</form>
+</div>
+
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+	
+	  <!-- Modal content -->
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <span class="close">&times;</span>
+	      <h2>User messages</h2>
+	    </div>
+	    <div class="modal-body">
+	      <p style="text-align: center;"><h2>{{CustomerController.userMessage}}</h2></p>
+	    </div>
+	    <div class="modal-footer">
+	      <h3>Press X or anywhere outside to continue</h3>
+	    </div>
+	  </div>
+	  </div>
+
+
+</div>
+

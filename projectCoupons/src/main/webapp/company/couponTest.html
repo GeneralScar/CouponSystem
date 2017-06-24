@@ -1,0 +1,25 @@
+<div class="container">
+<h3> Hello : {{TestController.editName}} <br/>
+Your Published Coupons on Customer View  </h3>
+<br>
+	<button type="button" class="btn btn-success" data-ng-click="logOut=true">
+	<span class="glyphicon glyphicon-user"></span> Logout
+	</button>
+	
+	<div data-ng-show="logOut">
+		<img src="http://localhost:8080/projectCoupons/images/logOut.jpg" class="img-rounded" alt="no Image" width="150" height="115"
+				data-ng-click=TestController.logOut()></img>
+				<button type="button" class="btn btn-success" data-ng-click="logOut=false">
+				<span class="glyphicon glyphicon-like"></span> stay</button>
+				<button type="button" class="btn btn-danger" data-ng-click="TestController.logOut()">
+				<span class="glyphicon glyphicon-like"></span> leave</button>
+				
+	</div>
+	<div data-ng-repeat="coupon in TestController.coupons">
+		
+		<custview></custview>	
+	
+	</div>
+	
+</div>	
+			  

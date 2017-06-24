@@ -1,0 +1,147 @@
+<div class="container">
+<h3>My Purchased Coupons</h3>
+
+<br>
+<button type="button" class="btn btn-success" data-ng-click="logOut=true">
+	<span class="glyphicon glyphicon-user"></span> Logout
+</button>
+	<div data-ng-show="logOut">
+		<img src="http://localhost:8080/projectCoupons/images/logOut.jpg" class="img-rounded" alt="no Image" width="150" height="115"
+				data-ng-click=PurchaseController.logOut()></img>
+				<button type="button" class="btn btn-success" data-ng-click="logOut=false">
+				<span class="glyphicon glyphicon-like"></span> stay</button>
+				<button type="button" class="btn btn-danger" data-ng-click="PurchaseController.logOut()">
+				<span class="glyphicon glyphicon-like"></span> leave</button>
+	</div>
+<br>
+<br>
+
+<div class="form-inline pull-right">
+	<div class="input-group">
+		<span class="input-group-btn">
+    		<button type="button" class="btn btn-default">
+    			<span class="glyphicon glyphicon-search"></span> search
+
+    		</button> 
+  		</span>
+
+		<select id="inputClientType" class="form-control" data-ng-init="" data-ng-model="PurchaseController.couponTypefilter.couponType">
+				<option value="Resturant">Restaurant</option>
+				<option value="Electricity">Electricity</option>
+				<option value="Food">Food</option>
+				<option value="Health">Health</option>
+				<option value="Sports">Sports</option>
+				<option value="Camping">Camping </option>
+				<option value="Traveling">Traveling </option>
+
+	    </select>
+	    
+	    <span class="input-group-btn">
+        <input type="text" class="form-control" style="width: 100px;" placeholder="Title" data-ng-model="PurchaseController.couponTypefilter.title">
+        </span>
+	    
+        <span class="input-group-btn">
+        <input type="text" class="form-control" style="width: 100px;" placeholder="Price" data-ng-init="" data-ng-model="PurchaseController.couponfilter.underprice">
+        
+        <span class="input-group-btn">
+			
+			<button class="btn btn-default"
+			 data-ng-click="PurchaseController.propertyName = null;
+						   	PurchaseController.reverse = false;
+			  			   	PurchaseController.couponTypefilter=null;
+			  			  	PurchaseController.couponfilter.underprice=undefined">
+							<span class="glyphicon glyphicon-refresh"></span> Refresh
+			</button>
+			
+			<button class="btn btn-default"	data-ng-click="PurchaseController.scrollTo('bottom')">
+				<span class="glyphicon glyphicon-triangle-bottom"></span> down
+			</button>
+				
+		</span>
+
+	</div>    
+</div>
+
+
+<table class="table table-striped">
+		
+		<thead>
+			<tr>
+				<th data-ng-show="flase">Index</th>
+				<th data-ng-show="false">ID</th>
+<th>
+					<button class="btn" data-ng-click="PurchaseController.sortBy('title')">Title</button>
+        				<span class="sortorder" data-ng-show="PurchaseController.propertyName === 'title'"></span>
+				</th>
+				<th>
+					<button class="btn" data-ng-click="PurchaseController.sortBy('couponType')">Type</button>
+						<span class="sortorder" data-ng-show="PurchaseController.propertyName === 'couponType'"></span>
+   			    </th>
+				<th>
+					<button class="btn" data-ng-click="PurchaseController.sortBy('dateStart')">StartDate</button>
+						<span class="sortorder" data-ng-show="PurchaseController.propertyName === 'dateStart'"></span>		
+				</th>
+				<th>
+					<button class="btn" data-ng-click="PurchaseController.sortBy('dateEnd')">EndtDate</button>
+						<span class="sortorder" data-ng-show="PurchaseController.propertyName === 'dateEnd'"></span>		
+				</th>
+	
+				<th>Image</th>
+				<th>Message</th>
+				<th>
+					<button class="btn" data-ng-click="PurchaseController.sortBy('price')">Price</button>
+						<span class="sortorder" data-ng-show="PurchaseController.propertyName === 'price'"></span>		
+				</th>			
+			</tr>
+		</thead>
+		
+		<tbody>
+		<br>
+		<br>
+		  <pre>Sort by = {{PurchaseController.propertyName}}; reverse = {{PurchaseController.reverse}}</pre>
+		
+			<tr data-ng-repeat="coupon in PurchaseController.coupons| orderBy:PurchaseController.propertyName 
+				| filter:PurchaseController.couponTypefilter :match  | filter:PurchaseController.couponType :match"
+				data-ng-hide="coupon.price>=PurchaseController.couponfilter.underprice">
+
+				<td data-ng-show="false">{{$index}}</td>
+				<td data-ng-show="false">{{ coupon.couponId }}</td>
+				<td title="{{ coupon.massage }}">{{ coupon.title }}</td>
+				<td>{{ coupon.couponType }}</td>
+				<td>{{ coupon.dateStart}}</td>
+				<td>{{ coupon.dateEnd}}</td>
+
+
+				<td>
+					<img  src={{coupon.image}} class="img-rounded" alt="no Image" width="150" height="115">	  	 
+				</td>
+				<td>{{ coupon.message }}</td>
+				<td>{{ coupon.price |currency}}</td>
+
+			</tr>
+		</tbody>
+	</table>
+
+	<button class="btn btn-default pull-right" data-ng-click="PurchaseController.scrollTo('top')">
+		<span class="glyphicon glyphicon-triangle-top"></span> up
+	</button>
+	
+		<!-- The Modal -->
+	<div id="myModal" class="modal">
+	
+	  <!-- Modal content -->
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <span class="close">&times;</span>
+	      <h2>User messages</h2>
+	    </div>
+	    <div class="modal-body">
+	      <p>{{PurchaseController.userMessage}}</p>
+	    </div>
+	    <div class="modal-footer">
+	      <h3>Press X or anywhere outside to continue</h3>
+	    </div>
+	  </div>
+	  </div>
+</div>
+

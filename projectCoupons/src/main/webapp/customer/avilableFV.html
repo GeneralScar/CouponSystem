@@ -1,0 +1,47 @@
+<div class="container">
+<h3>Available Coupons</h3>
+
+<br>
+
+<button type="button" class="btn btn-success" data-ng-click="logOut=true">
+	<span class="glyphicon glyphicon-user"></span> Logout
+</button>
+	<div data-ng-show="logOut">
+		<p>are you sure?</p>
+		<img src="http://localhost:8080/projectCoupons/images/logOut.jpg" class="img-rounded" alt="no Image" width="150" height="115"
+				data-ng-click=CustCouponController.logOut()></img>
+				<button type="button" class="btn btn-success" data-ng-click="logOut=false">
+				<span class="glyphicon glyphicon-like"></span> stay</button>
+				<button type="button" class="btn btn-danger" data-ng-click="AvilableFVController.logOut()">
+				<span class="glyphicon glyphicon-like"></span> leave</button>
+	</div>
+
+
+	
+<br>
+
+		<br><br>
+		
+			<div data-ng-repeat="coupon in AvilableFVController.coupons ">
+						<custview2></custview2>	
+			</div>
+			
+				<!-- The Modal -->
+	<div id="myModal" class="modal">
+	
+	  <!-- Modal content -->
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <span class="close">&times;</span>
+	      <h2>User messages</h2>
+	    </div>
+	    <div class="modal-body">
+	      <p>{{AvilableFVController.userMessage}}</p>
+	    </div>
+	    <div class="modal-footer">
+	      <h3>Press X or anywhere outside to continue</h3>
+	    </div>
+	  </div>
+	  </div>
+</div>
+

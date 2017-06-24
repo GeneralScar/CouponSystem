@@ -1,0 +1,244 @@
+<div class="container">
+
+<h3>Companies</h3>
+
+<br>
+
+<button type="button" class="btn btn-success" data-ng-click="logOut=true">
+	<span class="glyphicon glyphicon-user"></span> Logout
+</button>
+	<div data-ng-show="logOut">
+		<p>are you sure?</p>
+		<img src="http://localhost:8080/projectCoupons/images/logOut.jpg" class="img-rounded" alt="no Image" width="150" height="115"
+				data-ng-click=CompanyController.logOut()></img>\
+				<button type="button" class="btn btn-success" data-ng-click="logOut=false">
+					<span class="glyphicon glyphicon-like"></span> stay</button>
+				<button type="button" class="btn btn-danger" data-ng-click="CompanyController.logOut()">
+					<span class="glyphicon glyphicon-like"></span> leave</button>
+
+	</div>
+	
+	<br>
+<br>  		
+
+
+	<div class="btn-group pull-right">
+
+  		<div class="input-group">
+		
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-default">
+    				<span class="glyphicon glyphicon-search"></span> search
+    			</button>
+  		
+        	<input type="text" class="form-control" style="width: 100px;" placeholder="Name"
+        	 				data-ng-init="" data-ng-model="CompanyController.companyTypefilter.compName">
+        	 
+        	 <input type="text" class="form-control" style="width: 100px;" placeholder="ID"
+        	 data-ng-init="" data-ng-model="CompanyController.companyTypefilter.compId">
+        	  		
+        	<span class="input-group pull-left">
+        
+			<button class="btn btn-default" data-ng-click="CompanyController.propertyName = null;
+						   CompanyController.reverse = false;
+			  			   CompanyController.compnayTypefilter">
+			 			 <span class="glyphicon glyphicon-refresh"></span> Refresh
+			</button>
+			</span>
+
+			</span>
+		</div>
+	</div>
+	
+
+<table class="table table-striped" style="text-align: center;">
+  <thead>
+    	<tr>
+      		<th class="col-sm-1" style="text-align: center;">Edit</th>
+      		<th class="col-sm-1" style="text-align: center;">Remove</th>
+      		<th class="col-md-1" data-ng-show="false" style="text-align: center;">Index</th>
+		      <th>
+					<button class="btn" data-ng-click="CompanyController.sortBy('compId')" style="text-align: center;">ID</button>
+		      		<span class="sortorder" data-ng-show="CompanyController.propertyName === 'compId'"></span>
+			 </th>
+      
+     		 <th>
+					<button class="btn" data-ng-click="CompanyController.sortBy('compName')" style="text-align: center;">Company Name</button>
+      				<span class="sortorder" data-ng-show="CompanyController.propertyName === 'compName'"></span>
+	  		</th>
+	  
+	        <th class="col-sm-4" style="text-align: center;">Email</th>
+	        <th class="col-sm-2" style="text-align: center;">Password</th>
+	        <th class="col-sm-2" data-ng-show="true" style="text-align: center;">Coupons</th>
+    </tr>
+
+  </thead>
+  <tbody>
+   <!-- {{CompanyController.companies}}  -->
+  
+  		<pre>Sort by = {{CompanyController.propertyName}}; reverse = {{CompanyController.reverse}}</pre>
+		
+		<tr data-ng-repeat="company in CompanyController.companies | orderBy:CompanyController.propertyName | filter:CompanyController.companyTypefilter :match">
+	  	<td>
+	        <button class="btn" data-ng-click="CompanyController.editORCreate($index)">
+	           <span class="glyphicon glyphicon-edit"></span>  Edit
+	        </button>
+      	</td>
+      	<td>
+	        <button class="btn" data-ng-click="CompanyController.removeCompany($index)">
+	           <span class="glyphicon glyphicon-remove"></span>
+	        </button>
+      	</td>      
+      <td data-ng-show="false">{{$index}}</td>
+      <td>{{ company.compId }}</td>
+      <td>{{ company.compName }}</td>
+      <td>{{ company.email }}</td>
+      <td>{{ company.password }}</td>
+      <td>
+        <button  class="btn" data-ng-click="CompanyController.getCoupons($index)">
+           <span class="glyphicon glyphicon-piggy-bank"></span>
+        </button>
+      </td> 
+      </tr>     
+      
+  </tbody>
+</table>
+
+<hr>
+<br>
+<div data-ng-show="CompanyController.showCoupons">
+<button class="btn btn-danger" data-ng-click="CompanyController.showCoupons=false"><span class="glyphicon glyphicon-remove-circle"></span> Close</button>
+<h3>{{CompanyController.theirCoupons}}'s published coupons</h3>
+<table class="table table-striped"  style="text-align: center;">
+  <tbody>
+  	<thead>
+    	<tr>
+      		<th class="col-sm-1" style="text-align: center;">index</th>
+      		<th class="col-sm-2" style="text-align: center;">coupon ID</th>
+      		<th class="col-sm-4" style="text-align: center;">coupon Title</th>
+      		<th class="col-sm-4" style="text-align: center;">image</th>
+		</tr>
+	</thead>
+		<tr data-ng-repeat="coupon in CompanyController.clickCoupons">
+	      		<td>	{{$index}}	</td>
+	      		<td>	{{coupon.couponId}}	</td>
+	      		<td>	{{coupon.title}}	</td>
+	      		<td>	<img src={{coupon.image}} class="img-rounded" alt="no Image" width="100px" height="100px">
+	      		</td>
+	    <tr/>
+    </tbody>
+</table>
+</div>
+<hr>
+
+<br>
+<button class="btn btn-primary" data-ng-click="CompanyController.editORCreate('new')">
+<span class="glyphicon glyphicon-user"></span>  Create New Company
+</button>
+<br>
+<hr>
+
+<div data-ng-show="CompanyController.create">
+
+<h3>Create New User:</h3> 
+
+
+
+<form name="createForm" class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Company Name:</label>
+    <div class="col-sm-4">
+
+    <input  data-ng-show="CompanyController.create" class="form-control" type="text" 
+    	    data-ng-model="CompanyController.compName"
+    	    placeholder="Company Name" required>		    
+    </div>
+  </div>
+  
+   
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Email:</label>
+    <div class="col-sm-4">
+    	<input class="form-control" type="email" name="myEmail" data-ng-model="CompanyController.newEmail" placeholder="email@yay" required>
+    </div>
+  </div> 
+  
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Password:</label>
+    <div class="col-sm-2">
+    <input class="form-control" type="text" name="myPass1" data-ng-model="CompanyController.passw1" placeholder="Password" required>
+    </div>
+  </div>
+  <!-- 
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Repeat:</label>
+    <div class="col-sm-2">
+   
+    <input class="form-control" type="text" name="myPass2" ng-model="CompanyController.passw2" placeholder="Repeat Password" required>	
+    </div>
+  </div>
+	 -->
+		<button type="submit" class="btn btn-primary" data-ng-click="CompanyController.applyCreate()"
+  					data-ng-disabled="(!createForm.$valid)">
+					<span class="glyphicon glyphicon-save"></span>  Create
+		</button>
+	
+
+</form>
+</div>
+
+<div data-ng-show="CompanyController.edit">
+
+<h3 >Edit User: {{CompanyController.editName}}</h3>
+
+<form name="editForm" class="form-horizontal">
+  
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Company Name:</label>
+    <div class="col-sm-4">   
+    	<input class="form-control" type="text" data-ng-disabled="true"  placeholder={{CompanyController.editName}}>
+    </div>
+  </div>
+   
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Email:</label>
+    <div class="col-sm-4">
+    	<input class="form-control" type="email" name="myEmail" data-ng-model="CompanyController.newEmail" placeholder="email@yay" required>
+    </div>
+  </div> 
+  
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Password:</label>
+    <div class="col-sm-2">
+    	<input class="form-control" type="text" name="myPass1" data-ng-model="CompanyController.passw1" placeholder="Password" required>
+	</div>
+  </div>
+
+	<button type="submit" class="btn btn-primary" data-ng-click="CompanyController.applyUpdate()"
+  					data-ng-disabled="!editForm.$valid"> 
+					<span class="glyphicon glyphicon-share"></span>  Update
+	</button>
+					
+</form>
+</div>
+
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+	
+	  <!-- Modal content -->
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <span class="close">&times;</span>
+	      <h2>User messages</h2>
+	    </div>
+	    <div class="modal-body">
+	      <p>{{CompanyController.userMessage}}</p>
+	    </div>
+	    <div class="modal-footer">
+	      <h3>Press X or anywhere outside to continue</h3>
+	    </div>
+	  </div>
+	  </div>
+
+</div>
+

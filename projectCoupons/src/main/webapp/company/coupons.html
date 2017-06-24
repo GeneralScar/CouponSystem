@@ -1,0 +1,327 @@
+<div class="container">
+<h3> Hello : {{CouponController.editName}} <br/>
+Your Published Coupons  </h3>
+<br>
+<button type="button" class="btn btn-success" data-ng-click="logOut=true">
+	<span class="glyphicon glyphicon-user"></span> Logout
+</button>
+	<div data-ng-show="logOut">
+		<img src="http://localhost:8080/projectCoupons/images/logOut.jpg" class="img-rounded" alt="no Image" width="150" height="115"
+				data-ng-click=CouponController.logOut()></img>
+				<button type="button" class="btn btn-success" data-ng-click="logOut=false">
+				<span class="glyphicon glyphicon-thumbs-up"></span> stay</button>
+				<button type="button" class="btn btn-danger" data-ng-click="CouponController.logOut()">
+				<span class="glyphicon glyphicon-remove-sign"></span> leave</button>
+				
+	</div>
+	
+<br>
+<div class="form-inline pull-right">
+
+	
+	<div class="input-group">		
+		<span class="input-group-btn">
+    		<button type="button" class="btn btn-default">
+    			<span class="glyphicon glyphicon-search"></span> search
+    		</button>
+  		</span>
+  		
+  		<span class="input-group-btn">
+        	<input type="text" class="form-control" style="width: 100px;" placeholder="Title" data-ng-init="" data-ng-model="CouponController.couponTypefilter.title">
+        </span>
+  		
+		<select id="inputClientType" class="form-control" data-ng-init="" data-ng-model="CouponController.couponSelect">
+				<option value=''>All</option>
+				<option value="Resturant">Restaurant</option>
+				<option value="Electricity">Electricity</option>
+				<option value="Food">Food</option>
+				<option value="Health">Health</option>
+				<option value="Sports">Sports</option>
+				<option value="Camping">Camping </option>
+				<option value="Traveling">Traveling </option>
+				<!-- <option value='ALL' >All</option> -->
+	    </select>
+	        
+        <span class="input-group-btn">
+        
+        <input type="text" class="form-control" style="width: 100px;" placeholder="Price" data-ng-init="" data-ng-model="CouponController.couponfilter.underprice">
+
+        <span class="input-group-btn">
+		
+			  <button class="btn btn-default" 
+			  		  data-ng-click="CouponController.propertyName = null;
+						   CouponController.reverse = false;
+			  			   CouponController.couponTypefilter=null;
+			  			   CouponController.couponfilter.underprice=undefined">
+			  		<span class="glyphicon glyphicon-refresh"></span> Refresh
+			  </button>
+		</span>
+		</span>
+	</div>    
+</div>
+
+<table class="table table-striped">
+		<thead>
+			<tr>
+ 			    <th class="col-sm-1">Edit</th>
+  			    <th class="col-sm-1">Remove</th>			
+				<th data-ng-show="false">Index</th>
+				<th>
+					<button class="btn" data-ng-click="CouponController.sortBy('couponId')">ID</button>
+        				<span class="sortorder" data-ng-show="CouponController.propertyName === 'couponId'"></span>
+				</th>
+				<th>
+					<button class="btn" data-ng-click="CouponController.sortBy('title')">Title</button>
+        				<span class="sortorder" data-ng-show="CouponController.propertyName === 'title'"></span>
+				</th>
+				<th>
+					<button class="btn" data-ng-click="CouponController.sortBy('couponType')">Type</button>
+						<span class="sortorder" data-ng-show="CouponController.propertyName === 'couponType'"></span>
+   			    </th>
+				<th>
+					<button class="btn" data-ng-click="CouponController.sortBy('dateStart')">StartDate</button>
+						<span class="sortorder" data-ng-show="CouponController.propertyName === 'dateStart'"></span>		
+				</th>
+				<th>
+					<button class="btn" data-ng-click="CouponController.sortBy('dateEnd')">EndtDate</button>
+						<span class="sortorder" data-ng-show="CouponController.propertyName === 'dateEnd'"></span>		
+				</th>
+				<th>Image</th>
+				<th>Message</th>
+				<th>
+					<button class="btn" data-ng-click="CouponController.sortBy('price')">Price</button>
+						<span class="sortorder" data-ng-show="CouponController.propertyName === 'price'"></span>		
+				</th>
+				<th>
+					<button class="btn" data-ng-click="CouponController.sortBy('amount')">Amount</button>
+						<span class="sortorder" data-ng-show="CouponController.propertyName === 'amount'"></span>		
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+					<br>	  
+					<br>	  
+			  <pre>Sort by = {{CouponController.propertyName}}; reverse = {{CouponController.reverse}}</pre>
+			
+			
+			<tr data-ng-repeat="coupon in CouponController.coupons | orderBy:CouponController.propertyName 
+			| filter:CouponController.couponTypefilter :match  | filter:CouponController.couponSelect :match" data-ng-hide="coupon.price>=CouponController.couponfilter.underprice">
+ 				<td>
+     			   <button class="btn" data-ng-click="CouponController.editORCreate($index)">
+    		       		<span class="glyphicon glyphicon-edit"></span>  Edit
+   			     	</button>
+      			</td>
+      			<td>
+        			<button class="btn" data-ng-click="CouponController.removeCoupon($index)">
+           				<span class="glyphicon glyphicon-remove"></span>
+        			</button>
+      			</td>      				
+				<td data-ng-show="false">{{$index}}</td>
+				<td>{{ coupon.couponId }}</td>
+				<td title="{{ coupon.massage }}">{{ coupon.title }}</td>
+				<td>{{ coupon.couponType }}</td>
+
+				<td style="white-space:nowrap;">{{ coupon.dateStart}}</td> <!--  | date:'yyyy-MM-dd' -->
+				<td style="white-space:nowrap;">{{ coupon.dateEnd}}</td> <!--  | date:'yyyy-MM-dd' -->
+				<td>
+				<!-- 
+				<button class="btn" ng-click="CouponController.showPicture()">
+           				<span class="glyphicon glyphicon-picture"></span>
+        		</button>
+        		ng-show=CouponController.showPic 
+        		-->
+				<img src={{coupon.image}} class="img-rounded" alt="no Image" width="150" height="115">
+				
+				<td>{{ coupon.message }}</td>
+				<td>{{ coupon.price |currency}}</td>
+				<td>{{ coupon.amount }}</td>
+				
+			</tr>
+		</tbody>
+	</table>
+	
+	
+<hr>
+<button class="btn btn-primary" data-ng-click="CouponController.editORCreate('new')">
+<span class="glyphicon glyphicon-user"></span>  Create New Coupon
+</button>
+<hr>
+
+<h3 data-ng-show="CouponController.create">Create New Coupon:</h3>
+<h3 data-ng-show="CouponController.edit">Edit Coupon:</h3>
+
+<form data-ng-show="CouponController.create" class="form-horizontal" name="createForm" novalidate >
+  
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Coupon Title:</label>
+    <div class="col-sm-10">
+  	    	<input class="form-control" type="text" 
+			data-ng-model="CouponController.couponTitle" placeholder="Coupon Title" name="couponName" required >
+     </div>
+  </div>
+   
+  <div class="form-group" >
+  	<label class="col-sm-2 control-label">type:</label>
+    	<div class="col-sm-2">
+			<select data-ng-show = "CouponController.create" class="form-control" data-ng-init="" data-ng-model="CouponController.couponType" required>
+				<option value="">All</option>
+				<option value="Resturant">Restaurant</option>
+				<option value="Electricity">Electricity</option>
+				<option value="Food">Food</option>
+				<option value="Health">Health</option>
+				<option value="Sports">Sports</option>
+				<option value="Camping">Camping </option>
+				<option value="Traveling">Traveling </option>
+
+	    	</select>
+	 </div>  
+  </div> 
+
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Message:</label>
+    <div class="col-md-10">
+    	<input class="form-control" type="text" data-ng-model= "CouponController.couponMessage" placeholder="message" name="couponMess" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Price:</label>
+    <div class="col-sm-2">
+    	<input class="form-control" type="number" min="0" data-ng-model="CouponController.couponPrice" placeholder="price" name="couponPrice" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Amount:</label>
+    <div class="col-sm-2">
+    	<input class="form-control" type="number" min="1" data-ng-model="CouponController.couponAmount" placeholder="amount" name="couponAmount" required>
+  	</div>
+  </div>
+  
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Image:</label>
+    <div class="col-sm-5">      
+    	<input data-ng-disabled="!CouponController.create"  class="form-control" type="file" id="theFile" data-ng-model="CouponController.couponImage" name="couponImage">
+  	</div>
+  </div>
+  
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Start Date:</label>
+    <div class="col-sm-2">
+    	<input class="form-control" type="date" data-ng-model="CouponController.couponStartDate" placeholder="start date" name="couponSD">
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label class="col-sm-2 control-label">End Date:</label>
+    <div class="col-sm-2">
+    	<input class="form-control" type="date" data-ng-model="CouponController.couponEndDate" placeholder="end date" name="couponSE">
+    </div>
+  </div>
+
+<hr>
+
+<button type="submit" class="btn btn-primary" 
+           value="Create" title="Create" data-ng-click="CouponController.applyCreate()" data-ng-disabled="!createForm.$valid">
+		<span class="glyphicon glyphicon-save"></span> Create
+         </button>
+         
+</form>
+
+
+<form data-ng-show="CouponController.edit" class="form-horizontal" name="editForm" novalidate >
+  
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Coupon Title:</label>
+    <div class="col-sm-10">
+  	    	<input class="form-control" type="text" data-ng-model="CouponController.couponTitle" 
+  	    	data-ng-disabled="true" placeholder={{CouponController.toUpdate}}>
+     </div>
+  </div>
+   
+  <div class="form-group" >
+  	<label class="col-sm-2 control-label">type:</label>
+    	<div class="col-sm-2">
+			<input data-ng-disabled="true" class="form-control" type="text" 
+				   data-ng-model="CouponController.couponType" placeholder={{CouponController.toUpdateTYPE}}>
+	    </div> 
+  </div> 
+
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Message:</label>
+    <div class="col-md-10">
+    	<input class="form-control" type="text" data-ng-model= "CouponController.couponMessage" placeholder="message" 
+    	name="couponMess" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Price:</label>
+    <div class="col-sm-2">
+    	<input class="form-control" type="number" min="0" data-ng-model="CouponController.couponPrice" placeholder="price" 
+    	name="couponPrice" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Amount:</label>
+    <div class="col-sm-2">
+    	<input class="form-control" type="number" min="1" data-ng-model="CouponController.couponAmount" placeholder="amount" 
+    	name="couponAmount" required>
+  	</div>
+  </div>
+  
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Image:</label>
+    <div class="col-sm-5">      
+    	<input   data-ng-disabled="true" class="form-control" type="file" id="theFile" 
+    			 data-ng-model="CouponController.couponImage" name="couponImage">
+  	</div>
+  </div>
+  
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Start Date:</label>
+    <div class="col-sm-2">
+    	<input class="form-control" type="date" data-ng-model="CouponController.couponStartDate" placeholder="start date" name="couponSD">
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label class="col-sm-2 control-label">End Date:</label>
+    <div class="col-sm-2">
+    	<input class="form-control" type="date" data-ng-model="CouponController.couponEndDate" placeholder="end date" name="couponSE">
+    </div>
+  </div>
+
+<hr>
+
+		<button type="submit" class="btn btn-primary" 
+           value="Update" title="Update" data-ng-click="CouponController.applyUpdate()" data-ng-disabled="!editForm.$valid">
+		<span class="glyphicon glyphicon-save"></span> Update
+         </button>
+         
+	</form>
+
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+	
+	  <!-- Modal content -->
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <span class="close">&times;</span>
+	      <h2>User messages</h2>
+	    </div>
+	    <div class="modal-body">
+	      <p>{{CouponController.userMessage}}</p>
+	    </div>
+	    <div class="modal-footer">
+	      <h3>Press X or anywhere outside to continue</h3>
+	    </div>
+	  </div>
+	  </div>
+
+
+</div>	
+

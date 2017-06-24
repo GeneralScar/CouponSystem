@@ -1,0 +1,78 @@
+
+
+<!-- 
+	private static final long serialVersionUID = 1L;
+	private long coupon_id;
+	private COUPON_TYPE couponType;
+	private Date dateStart; 
+	private Date dateEnd;
+	private String message;
+	private double price;
+	private int amount;
+	private String image;
+	private String title;
+	 -->
+	 
+	<div>
+		<br><br><br>
+	
+		<table class="table table-striped">
+		<thead>
+			<tr> 
+				<h3 style="text-align: center;
+					 font-weight: bold; 
+					 background-color:rgba(153, 102, 255, 0.8);
+					 border-radius: 15px 50px;
+					 color:white;padding:20px;"> 
+					 {{coupon.title}}</h3> 
+			 </tr>
+		</thead>
+			  <th class = "col-sm-1">	
+				<h3 style="text-align: center;
+					 font-weight: bold; 
+					 background-color:rgba(153, 102, 255, 0.8);
+					 border-radius: 15px 50px;
+					 color:white;padding:20px;"> 
+					 Coupon type:<br>
+					 {{coupon.couponType}}</h3>
+				 
+					<h3 style="text-align: center;
+					 font-weight: bold; 
+					 background-color:rgba(153, 102, 255, 0.8);
+					 border-radius: 15px 50px;
+					 color:white;padding:20px;">
+					 Stat date: <br>
+				     {{coupon.dateStart}}</h3>
+
+				<h3 style="text-align: center;
+					 font-weight: bold; 
+					 background-color:rgba(153, 102, 255, 0.8);
+					 border-radius: 15px 50px;
+					 color:white;padding:20px;"> 
+					 Exp. Date: <br>
+				     {{coupon.dateEnd}}</h3>
+
+				<h3 style="text-align: center;
+					 font-weight: bold; 
+					 background-color:rgba(153, 102, 255, 0.8);
+					 border-radius: 15px 50px;
+					 color:white;padding:20px;"> 
+					 Price: <br>
+				 	 {{coupon.price |currency}}</h3>	
+
+				<h3 style="text-align: center;
+					 font-weight: bold; 
+					 background-color:rgba(153, 102, 255, 0.8);
+					 border-radius: 15px 50px;
+					 color:white;padding:20px;"> 
+					 Description: <br> 
+			    	 {{coupon.message}}</h3>	
+
+			  </th>
+			  <th class = "col-sm-4">	
+				<img src={{coupon.image}} class="img-rounded" alt="no Image" width="100%" height="550">
+			  </th>
+					
+			</table>
+	</div>
+	

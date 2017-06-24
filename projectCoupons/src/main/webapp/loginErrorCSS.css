@@ -1,0 +1,14 @@
+img {
+    z-index: -999; 
+	position: 50% 50%;
+	width:30%;
+	height:30%;
+	repeat: no-repeat;
+} 
+div
+{
+	position:50% 65%;
+    text-align: center;
+    color: red;
+    font-size: 30px;
+}

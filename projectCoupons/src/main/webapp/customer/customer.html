@@ -1,0 +1,76 @@
+<!-- define angular app -->
+<html data-ng-app="customerApp">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>CouponProject Customer</title>
+  
+  <!-- a lot of crap for a super small symbol
+ --> 
+<link rel="apple-touch-icon" sizes="57x57" href="http://localhost:8080/projectCoupons/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="http://localhost:8080/projectCoupons/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://localhost:8080/projectCoupons/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="http://localhost:8080/projectCoupons/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="http://localhost:8080/projectCoupons/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="http://localhost:8080/projectCoupons/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="http://localhost:8080/projectCoupons/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="http://localhost:8080/projectCoupons/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:8080/projectCoupons/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="http://localhost:8080/projectCoupons/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:8080/projectCoupons/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="http://localhost:8080/projectCoupons/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:8080/projectCoupons/favicon/favicon-16x16.png">
+<link rel="manifest" href="http://localhost:8080/projectCoupons/favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="http://localhost:8080/projectCoupons/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">    
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.js"></script>
+    
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.rawgit.com/gilf/ngPrint/master/ngPrint.min.css" />
+
+
+  <script src="customerRouter.js"></script>
+  <script src="customerWebService.js"></script>
+  <script src="purchasedCoupons.js"></script>
+  <script src="customerInfo.js"></script>
+  <script src="avilableCoupons.js"></script>
+  <script src="avilableFV.js"></script>
+  <link rel="stylesheet" href="http://localhost:8080/projectCoupons/customer/couponsMSG.css" />
+	
+</head>
+
+<body>
+  <nav class="navbar navbar-default" >
+    <div class="container">
+      <div class="navbar-header">
+
+        <a class="navbar-brand" href="#coupons"></a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right" >
+        <li data-ng-class="{ active: isActive('/fullview')}"><a href="#fullview">Avilable-Full-View</a></li>
+        <li data-ng-class="{ active: isActive('/coupons')}"><a href="#coupons">Available Coupons</a></li>
+        <li data-ng-class="{ active: isActive('/buy')}"><a href="#buy">My Coupons</a></li>
+        <li data-ng-class="{ active: isActive('/settings')}"><a href="#settings">Settings</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div id="main">
+
+    <div data-ng-view></div>
+  </div>
+
+	<br>
+	<br>
+
+</body>
+</html>

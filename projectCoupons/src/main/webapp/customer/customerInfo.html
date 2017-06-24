@@ -1,0 +1,51 @@
+<div class="container">
+
+<h3>Your Account Deatils</h3>
+
+<br>
+<button type="button" class="btn btn-success" ng-click="logOut=true">
+	<span class="glyphicon glyphicon-user"></span> Logout
+</button>
+	<div ng-show="logOut">
+		<p>are you sure?</p>
+		<img src="http://localhost:8080/projectCoupons/images/logOut.jpg" class="img-rounded" alt="no Image" width="150" height="115"
+				ng-click=InfoController.logOut()></img>
+				<button type="button" class="btn btn-success" ng-click="logOut=false">
+					<span class="glyphicon glyphicon-like"></span> stay
+				<button type="button" class="btn btn-danger" ng-click="InfoController.logOut()">
+					<span class="glyphicon glyphicon-like"></span> leave
+
+	</div>
+<br>
+
+
+<br><br>
+<form class="form-horizontal">
+   
+   <div class="form-group">
+    <label class="col-sm-2 control-label">Customer ID:</label>
+    <div class="col-sm-4">
+    <input class="form-control" type="text" ng-disabled="true" placeholder={{InfoController.logID}}>
+    </div>
+  </div> 
+    
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Customer Name:</label>
+    <div class="col-sm-4">
+    <input class="form-control" type="text" ng-disabled="true" placeholder={{InfoController.logName}}>
+    </div>
+  </div> 
+  
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Password:</label>
+    <div class="col-sm-2">
+
+    <input class="form-control" type="text" ng-disabled="true" placeholder={{InfoController.logPassword}}>
+    </div>
+  </div>
+</form>
+
+<hr>
+
+</div>
+
